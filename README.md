@@ -10,6 +10,11 @@ wall-e: Keyword for a loop construct.
 IDENTIFIER: Represents variable names or values.
 EOL: End of line.
 
+## Prerequisites
+- Flex
+- Bison
+https://github.com/lexxmark/winflexbison/releases(For Download)
+
 ## Lexer (filmScript.l)
 The lexer is responsible for breaking the input code into individual tokens, recognizing keywords, and assigning values to identifiers.
 Token Definitions
