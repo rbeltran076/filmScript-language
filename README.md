@@ -1,34 +1,59 @@
-# WinFlexBison - Flex and Bison for Microsoft Windows
+filmScript: A language for movie enthusiast
+Overview
+filmScript is a simple programming language that uses movie titles instead of traditional keywords. The language includes basic constructs such as conditional statements, variable declarations, and loops. The implementation involves a lexer (implemented using Flex) and a parser (implemented using Bison).
 
-WinFlexBison is a Windows port of [Flex (the fast lexical analyser)](https://github.com/westes/flex/) and [GNU Bison (parser generator)](https://www.gnu.org/software/bison/).
-Both win_flex and win_bison are based on upstream sources but depend on system libraries only.
 
-**NOTE**:
-* 2.4.x versions include GNU Bison version 2.7
-* 2.5.x versions include GNU Bison version 3.x.x
+what_if: Conditional statement, similar to "if" in traditional languages.
+elf: "Else" statement for handling alternative cases.
+fantastic: Keyword for declaring variables.
+wall-e: Keyword for a loop construct.
+IDENTIFIER: Represents variable names or values.
+EOL: End of line.
 
-## License
-Flex uses a [BSD license](flex/src/COPYING), GNU Bison is [licensed under the GNU General Public License (GPLv3+)](bison/src/COPYING).  
-All build scripts in WinFlexBison are distributed under GPLv3+. See [COPYING](COPYING) for details.
+Lexer (filmScript.l)
+The lexer is responsible for breaking the input code into individual tokens, recognizing keywords, and assigning values to identifiers.
+Token Definitions
+what_if, elf, fantastic, wall-e: Keywords recognized by the lexer.
+IDENTIFIER: Represents variable names or values.
+EOL: Represents the end of a line.
+Token Actions
+what_if, elf, fantastic, wall-e: Return the corresponding token.
+IDENTIFIER: Save the string value in yylval.strval.
+EOL: Return the end-of-line token.
+Error Handling
+Unrecognized tokens trigger the yyerror function.
 
-All documentation, especially those under custom_build_rules/doc, is distributed under the GNU Free Documentation License (FDL 1.3+).
 
-## Build status
-Bison 3.x (master) [![Build status](https://ci.appveyor.com/api/projects/status/58lcjnr0mb9uc8c8/branch/master?svg=true)](https://ci.appveyor.com/project/lexxmark/winflexbison/branch/master) and, for compatibility reasons, Bison 2.7 (bison2.7) [![Build status](https://ci.appveyor.com/api/projects/status/58lcjnr0mb9uc8c8/branch/bison2.7?svg=true)](https://ci.appveyor.com/project/lexxmark/winflexbison/branch/bison2.7)
 
-## Downloads
-https://github.com/lexxmark/winflexbison/releases provides stable versions.
-To test non-released development versions see the artifacts provided by CI under "Build status".
 
-## Changelog
-The release page includes the full Changelog but you may also see the [changelog.md](changelog.md) file.
+After running this with flex you get the lex.yy.c
 
-## Build requirements
-* Visual Studio 2017 or newer
-* optional: CMake (when building with CMake)
 
-## HowTo
-You may use win_flex and win_bison directly on the command line or [use them via CustomBuildRules in VisualStudio](custom_build_rules/README.md).
+Parser (filmScript.y)
+The parser processes the tokens produced by the lexer and constructs a syntax tree according to the filmScript language grammar.
+Grammar Rules
+script: Represents the entire filmScript program.
+lines: Represents a sequence of script lines.
+line: Represents a single line of code.
+expression: Represents conditional expressions or variable assignments.
+Semantic Actions
+what_if, elf, fantasic, wall-e: Print corresponding statements.
+IDENTIFIER expression: Print variable assignment statement.
+expression '>' expression, expression '<' expression: Evaluate and print conditional expressions.
+error EOL: Handle syntax errors with the yyerror function.
+Semantic Values
+%union: Declares a union type to store different semantic values.
+<strval> expression: Specifies that the semantic value of the expression non-terminal is a string.
+Error Handling
+yyerror: Prints an error message on syntax errors.
 
-## Example flex/bison files
-See https://github.com/meyerd/flex-bison-example
+After running this with bison we get the y.tab.h & t.tab.c
+
+
+Sample (scene.txt)
+Scene.txt is the file where we can write the code
+
+
+How to run filmScript
+To run film script well first run the files with flex and bison and then compile them
+
