@@ -1,0 +1,6 @@
+what_if 12 > 10
+fantasic result
+elf
+result True EOL
+wall-e
+result False EOL
